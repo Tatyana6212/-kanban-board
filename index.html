@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f3ef" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <title>Доска задач</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="app">
+    <header class="page-header">
+      <h1>Доска задач</h1>
+      <div class="header-actions"><div class="scroll-controls"><button id="scroll-left" type="button" aria-label="Прокрутить доску влево">←</button><button id="scroll-right" type="button" aria-label="Прокрутить доску вправо">→</button></div><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Включить тёмную тему" aria-pressed="false" title="Переключить тему"><span id="theme-icon" aria-hidden="true">☾</span></button><div class="file-menu-wrap"><button class="file-menu-trigger" id="file-menu-trigger" type="button" aria-haspopup="true" aria-expanded="false">Файл <span aria-hidden="true">⌄</span></button><div class="file-menu" id="file-menu" hidden><button type="button" id="file-load">Загрузить</button><button type="button" id="file-save">Сохранить</button></div></div></div>
+    </header>
+    <section class="board" id="board" aria-label="Доска с колонками" tabindex="0"></section>
+    <p class="sr-only" id="announcement" role="status" aria-live="polite"></p>
+    <p class="sr-only" id="storage-label" role="status" aria-live="polite"></p>
+  </main>
+  <input class="sr-only" type="file" id="file-input" accept=".txt,text/plain">
+  <dialog id="card-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-context">
+    <form id="card-form">
+      <div class="dialog-header"><h2 id="dialog-title">Новая карточка</h2><button class="close-button" id="close-dialog" type="button" aria-label="Закрыть форму">×</button></div>
+      <p class="dialog-context" id="dialog-context"></p>
+      <label for="card-title">Название <span aria-hidden="true">*</span></label>
+      <input id="card-title" name="title" placeholder="Что нужно сделать?" required maxlength="200" autocomplete="off">
+      <label for="card-description">Описание</label>
+      <textarea id="card-description" name="description" rows="5" placeholder="Детали, заметки или следующий шаг"></textarea>
+      <label for="card-color">Цвет карточки</label><div class="color-picker-row"><input id="card-color" name="color" type="color" value="#818cf8"><span>Или выберите оттенок из палитры.</span></div><div class="color-palette" id="card-palette" role="group" aria-label="Палитра карточки"></div>
+      <p class="form-error" id="form-error" role="alert"></p>
+      <div class="dialog-actions dialog-actions-edit"><button class="danger-button icon-delete" id="delete-card" type="button" aria-label="Удалить карточку" title="Удалить карточку" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m3 0-1 13H7L6 7m4 4v6m4-6v6"/></svg></button><span class="action-spacer"></span><button class="secondary-button" id="cancel-dialog" type="button">Отмена</button><button class="primary-button" id="save-card" type="submit">Создать</button></div>
+    </form>
+  </dialog>
+  <dialog id="column-dialog" aria-labelledby="column-dialog-title">
+    <form id="column-form">
+      <div class="dialog-header"><h2 id="column-dialog-title">Настройки колонки</h2><button class="close-button" id="close-column-dialog" type="button" aria-label="Закрыть форму">×</button></div>
+      <p class="dialog-context">Измените название и цвет колонки.</p>
+      <label for="column-name">Название</label><input id="column-name" name="name" maxlength="100" placeholder="Например, «На проверке»" autocomplete="off">
+      <label for="column-color">Цвет колонки</label><div class="color-picker-row"><input id="column-color" name="color" type="color" value="#818cf8"><span>Или выберите оттенок из палитры.</span></div><div class="color-palette" id="column-palette" role="group" aria-label="Палитра колонки"></div>
+      <p class="form-error" id="column-error" role="alert"></p>
+      <div class="dialog-actions dialog-actions-edit"><button class="danger-button icon-delete" id="delete-column" type="button" aria-label="Удалить колонку" title="Удалить колонку"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m3 0-1 13H7L6 7m4 4v6m4-6v6"/></svg></button><span class="action-spacer"></span><button class="secondary-button" id="cancel-column-dialog" type="button">Отмена</button><button class="primary-button" type="submit">Сохранить</button></div>
+    </form>
+  </dialog>
+</body>
+</html>
